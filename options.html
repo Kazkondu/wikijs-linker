@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Wiki.js Linker — Options</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="wrap">
+    <h1>Configure Extension</h1>
+
+    <label>GraphQL Endpoint
+      <input id="endpoint" type="url" placeholder="https://your-website.com/graphql" />
+    </label>
+
+    <label>API Token (Bearer)
+      <input id="token" type="password" placeholder="API token from Admin → API Access" />
+    </label>
+
+    <div class="row">
+      <label>Locale (e.g. en)
+        <input id="locale" type="text" value="en" />
+      </label>
+
+      <label>Page ID
+        <input id="pageId" type="number" min="1" step="1" placeholder="e.g. 11" />
+      </label>
+    </div>
+
+    <div class="row">
+      <button id="save">Save</button>
+      <button id="test">Test Connection</button>
+    </div>
+
+    <!-- Import/Export Section -->
+    <hr>
+    <h2>Configuration Import/Export</h2>
+    
+    <div class="row">
+      <button id="exportConfig">Export Configuration</button>
+      <button id="importConfig">Import Configuration</button>
+    </div>
+    
+    <input type="file" id="importFile" accept=".json" style="display: none;">
+    
+    <p class="help small">
+      Export your configuration as a JSON file or load a saved configuration.
+    </p>
+
+    <p class="help">
+      Note: You can find the page ID in Wiki.js under "Page Details" (ID at top left).
+    </p>
+
+    <pre id="out" class="out"></pre>
+  </main>
+
+  <script type="module" src="options.js"></script>
+</body>
+</html>

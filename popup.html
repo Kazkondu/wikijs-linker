@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Wiki.js Linker</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style> 
+    body { 
+    min-width: 450px; 
+    max-width: 450px;
+    min-height: 400px;  
+    max-height: 600px;
+    overflow-y: auto;
+  }
+    .category-management { margin: 10px 0; }
+    .category-row { display: flex; gap: 8px; align-items: center; }
+    .category-row select { flex: 1; }
+    .category-row button { white-space: nowrap; font-size: 12px; padding: 6px 8px; }
+    .new-category-form { 
+      display: none; 
+      background: #0f0f0f; 
+      border: 1px solid #2b2b2b; 
+      border-radius: 6px; 
+      padding: 12px; 
+      margin-top: 8px; 
+    }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 8px 0; }
+    .form-buttons { display: flex; gap: 8px; margin-top: 10px; }
+    .form-buttons button { flex: 1; font-size: 12px; }
+    .layout-preview { 
+      display: flex; 
+      gap: 5px; 
+      margin: 8px 0 12px 0;
+    }
+    .layout-option { 
+      flex: 1; 
+      text-align: center; 
+      padding: 8px 4px; 
+      border: 1px solid #333; 
+      border-radius: 4px; 
+      cursor: pointer; 
+      font-size: 10px;
+      transition: all 0.2s ease;
+    }
+    .layout-option.selected { 
+      border-color: #58a6ff; 
+      background: #1a2332; 
+      color: #58a6ff;
+    }
+    .layout-option:hover { 
+      border-color: #666; 
+    }
+    .layout-container-section {
+      background: #0a0a0a;
+      border: 1px solid #222;
+      border-radius: 6px;
+      padding: 10px;
+      margin: 8px 0;
+    }
+    .layout-container-section h4 {
+      margin: 0 0 8px 0;
+      font-size: 13px;
+      color: #8ab4ff;
+    }
+    .container-grid-preview {
+      display: grid;
+      gap: 2px;
+      margin: 5px 0;
+      height: 30px;
+    }
+    .container-grid-preview.cols-1 { grid-template-columns: 1fr; }
+    .container-grid-preview.cols-2 { grid-template-columns: 1fr 1fr; }
+    .container-grid-preview.cols-3 { grid-template-columns: 1fr 1fr 1fr; }
+    .container-grid-preview.cols-4 { grid-template-columns: 1fr 1fr 1fr 1fr; }
+    .container-grid-preview div {
+      background: #333;
+      border-radius: 2px;
+    }
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <h2>Wiki.js Linker</h2>
+
+    <div class="row">
+      <button id="btnTest">Test Connection</button>
+      <a href="options.html" target="_blank" class="link">Options</a>
+      <button id="btn-liveedit">Live Edit</button>
+    </div>
+
+    <hr/>
+
+    <p>Add link:</p>
+    
+    <div class="layout-container-section">
+      <h4>1. Choose Layout Container:</h4>
+      <div class="category-row">
+        <select id="containerSelect">
+          <option value="">-- Create New Container --</option>
+        </select>
+        <button id="newContainerBtn" type="button">New</button>
+      </div>
+      
+      <div id="newContainerForm" class="new-category-form">
+        <label>Container Name:
+          <input id="containerName" type="text" placeholder="e.g. Development Tools">
+        </label>
+        
+        <label>Column Layout:
+          <select id="containerColumns">
+            <option value="1">1 Column (Full Width)</option>
+            <option value="2">2 Columns</option>
+            <option value="3">3 Columns</option>
+            <option value="4">4 Columns (Desktop Only)</option>
+          </select>
+        </label>
+        
+        <div class="container-grid-preview cols-2">
+          <div></div>
+          <div></div>
+        </div>
+        
+        <div class="form-buttons">
+          <button id="createContainerBtn">Create Container</button>
+          <button id="cancelContainerBtn" type="button">Cancel</button>
+        </div>
+      </div>
+    </div>
+    
+    <div class="category-management">
+      <h4>2. Choose/Create Category:</h4>
+      <div class="category-row">
+        <select id="categorySelect">
+          <option value="">-- Select Category --</option>
+        </select>
+        <button id="newCategoryBtn" type="button">New</button>
+      </div>
+
+      <div id="newCategoryForm" class="new-category-form">
+        <label>Category Name:
+          <input id="categoryName" type="text" placeholder="e.g. Development Tools">
+        </label>
+        
+        <label>Description:
+          <input id="categoryDesc" type="text" placeholder="e.g. Useful tools for development">
+        </label>
+        
+        <div class="form-row">
+          <label>Color:
+            <select id="categoryAccent">
+              <option value="blue">Blue</option>
+              <option value="green">Green</option>
+              <option value="orange">Orange</option>
+              <option value="purple">Purple</option>
+              <option value="pink">Pink</option>
+              <option value="teal">Teal</option>
+            </select>
+          </label>
+          
+          <label>Column Position:
+            <select id="categoryColumn">
+              <option value="0">Column 1</option>
+              <option value="1">Column 2</option>
+              <option value="2">Column 3</option>
+              <option value="3">Column 4</option>
+            </select>
+          </label>
+        </div>
+        
+        <label>Layout Size:</label>
+        <div class="layout-preview">
+          <div class="layout-option" data-layout="compact">
+            📋<br>List
+          </div>
+          <div class="layout-option selected" data-layout="cards">
+            🎯<br>Cards  
+          </div>
+          <div class="layout-option" data-layout="large">
+            🖼️<br>Preview
+          </div>
+        </div>
+        
+        <div class="form-buttons">
+          <button id="createCategoryBtn">Create</button>
+          <button id="cancelCategoryBtn" type="button">Cancel</button>
+        </div>
+      </div>
+    </div>
+
+    <button id="btnAdd">Add Link</button>
+
+    <p class="help small">
+      The link will be added to the selected category/column.
+    </p>
+
+    <pre id="out" class="out small"></pre>
+  </main>
+
+  <script type="module" src="popup.js"></script>
+</body>
+</html>

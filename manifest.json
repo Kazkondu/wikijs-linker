@@ -1,0 +1,27 @@
+{
+  "manifest_version": 3,
+  "name": "Wiki.js Linker (by ID)",
+  "version": "1.67",
+  "description": "Adds the current page as a link card to a Wiki.js page (GraphQL, Page ID).",
+  "permissions": [
+    "storage", 
+    "activeTab", 
+    "scripting", 
+    "clipboardWrite", 
+    "notifications", 
+    "tabs"
+  ],
+  "host_permissions": [
+    "https://*/*",
+    "http://*/*"
+  ],
+  "action": {
+    "default_title": "Wiki.js Linker",
+    "default_popup": "popup.html"
+  },
+  "options_page": "options.html",
+  "background": {
+    "service_worker": "background.js",
+    "type": "module"
+  }
+}
